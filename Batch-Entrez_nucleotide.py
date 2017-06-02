@@ -2,7 +2,7 @@
 """
 Created on Thu Jun  1 13:57:13 2017
 
-@author: Antoon
+@author: Gromgorgel
 """
 ###############################################################################    
 # PREAMBLE
