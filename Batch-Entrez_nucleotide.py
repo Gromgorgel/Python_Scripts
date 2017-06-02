@@ -24,8 +24,8 @@ from tqdm import tqdm
 ###############################################################################    
 # SCRIPT
 ###############################################################################
-WD = 'D:\\Documents\\Werk\\JRC\\Projects - Experiments\\Honey Species ID\\OrthoDB\\batch nr' # unix mode
-WD2 = 'D:/Documents/Werk/JRC/Projects - Experiments/Honey Species ID/OrthoDB/batch nr/' # windows mode
+WD = 'C:\\path\\to\\files\\folder' # unix mode
+WD2 = 'C:/path/to/files/folder/' # windows mode
 os.chdir(WD) #changes the current wd to 'path'
 files = os.listdir(WD)
 
@@ -44,12 +44,12 @@ while i_max > 0:
     # we'll keep trying to fetch the data 
     itercount += 1
     print("Run iteration ", itercount)
-    # we keep track all files that fail the procedure in this iteration
+    # keep track of all files that fail the procedure in this iteration
     rerun = []    
     # I'm going to use a progress bar to get an idea of how long this will take
     # feel free to peel of the 'with tqdm' layer if you have no needs for such fancy
     with tqdm(total = i_max, unit = 'fetch', unit_scale = True) as pbar:
-        # we'll retrieve the sequences one by one:
+        # we'll retrieve the sequences file by file:
         for file in files:
             # quick count of the number of refs in the file:
             with open(file, 'r') as sfile: 
@@ -76,21 +76,21 @@ while i_max > 0:
                 retrieveElement = driver.find_element_by_partial_link_text('Retrieve') 
                 retrieveElement.click()  # click link         
                 # we've now arrived at our list of sequences, Standard display option is 20 per page
-                # unless there are less than 10, in which case there is no display option (prompting a NoSuchElementException)
-                # Anywayn we'll check if we need to display more (and do so if necessary)
+                # unless there are less than 10, in which case there is no display option (prompting a NoSuchElementException if we try to find it)
+                # Anyway, we'll check if we need to display more (and do so if necessary)
                 if nref > 20:                    
                     # so there are more than 20 refs, now we need to find the dropdown menu to change the number displayed
                     # however, there are several dropdown menus with the same ID, so we get a list of all of them (find_elements in stead of find_element)
                     elems = driver.find_elements_by_xpath("//*[@id='EntrezSystem2.PEntrez.Nuccore.Sequence_ResultsPanel.Sequence_DisplayBar.Display']")
                     # open menu and select the option we want
                     elems[1].send_keys(Keys.ENTER)  # second element changes display, we open the menu using ENTER
-                    time.sleep(2) # wait for menu to appear (otherwise you get an 'element not visible' error)
+                    time.sleep(1) # wait for menu to appear (otherwise you get an 'element not visible' error)
                     # choose 100 per page, change if you need more   
                     driver.find_element_by_xpath("//*[@id='ps100']").click()
                 # next we will click the other dropdown menu and select the fasta-text format to get the actual sequences
                 elems = driver.find_elements_by_xpath("//*[@id='EntrezSystem2.PEntrez.Nuccore.Sequence_ResultsPanel.Sequence_DisplayBar.Display']") 
                 elems[0].send_keys(Keys.ENTER) # the first element is the one to click
-                time.sleep(2) # wait for menu to appear
+                time.sleep(1) # wait for menu to appear
                 driver.find_element_by_xpath("//*[@id='fastatext']").click()
                 time.sleep(5) # wait sequences to load            
             # At this point we may have encountered a couple of errors:          
