@@ -1,5 +1,5 @@
 # Python Scripts
-A collection of Assorted python scripts for Bioinformatics purposes
+A collection of assorted python scripts for Bioinformatics purposes
 
 ## the 'Batch-Entrez_nucleotide.py' script
 So you want to automatically retrieve a bunch of nucleotide sequences from NCBI. Of course there's [Bio.Entrez](http://biopython.org/DIST/docs/api/Bio.Entrez-module.html), but they kindly ask to [minimize the number of requests](https://www.ncbi.nlm.nih.gov/books/NBK25497/#ui-ncbiinpagenav-heading-8) and I happen to find myself in a situation where I have a bunch of text files, each of which contains the accession numbers for orthologue genes across several species. 
