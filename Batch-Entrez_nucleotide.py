@@ -18,8 +18,6 @@ from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
 # import progressbar
 from tqdm import tqdm
-#turn off pretty printing (no linebreaks after print elements, repeat command to turn back on)
-# %pprint
 
 ###############################################################################    
 # SCRIPT
